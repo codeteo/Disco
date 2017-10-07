@@ -21,10 +21,64 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    // Architecture Components
+    implementation "android.arch.lifecycle:extensions:$archComponents"
+    implementation "android.arch.lifecycle:common-java8:$archComponents"
+
+    // Room
+    implementation "android.arch.persistence.room:runtime:$archComponents"
+    annotationProcessor "android.arch.persistence.room:compiler:$archComponents"
+    // Room + RxJava support
+    implementation "android.arch.persistence.room:rxjava2:$archComponents"
+    // Paging
+    implementation "android.arch.paging:runtime:1.0.0-alpha2"
+
+    // Testing
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    androidTestImplementation 'com.android.support.test:runner:1.0.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    androidTestImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer"
+    testImplementation "com.squareup.okhttp3:mockwebserver:$mockWebServer"
+
+    // Dagger core
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+
+    // Dagger Android
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+
+    // ButterKnife
+    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp:$okHttpClient"
+    implementation "com.google.code.gson:gson:2.8.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:2.2.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttpClient"
+
+    // Rx
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxJavaAdapter"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$rxBindingsVersion"
+
+    // Utilities
+    implementation 'com.jakewharton.timber:timber:4.5.1'
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
+
+    // Stetho
+    implementation "com.facebook.stetho:stetho:$stethoVersion"
+    implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
+
 }
