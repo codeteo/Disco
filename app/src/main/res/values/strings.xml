@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">DiscogMan</string>
+
+    <!-- Login screen start-->
+    <string name="login_description">
+        Discogs web page will open and it will ask you to authorize this app
+        for your account.
+    </string>
+    <!-- Login screen end-->
 </resources>

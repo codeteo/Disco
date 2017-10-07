@@ -22,7 +22,7 @@ import okhttp3.HttpUrl;
 @Module()
 public class ApplicationModule {
 
-    private static final HttpUrl PRODUCTION_API_BASE_URL = HttpUrl.parse(Constants.BASE_DICOGS_URL);
+    private static final HttpUrl PRODUCTION_API_BASE_URL = HttpUrl.parse(Constants.BASE_DISCOGS_URL);
 
     @Provides
     @Singleton
@@ -45,7 +45,7 @@ public class ApplicationModule {
     @Provides
     @Singleton
     static BaseUrlInterceptor providesBaseUrlInterceptor() {
-        return new BaseUrlInterceptor(Constants.BASE_DICOGS_URL);
+        return new BaseUrlInterceptor(Constants.BASE_DISCOGS_URL);
     }
 
 }
