@@ -40,6 +40,9 @@ dependencies {
     // Paging
     implementation "android.arch.paging:runtime:1.0.0-alpha2"
 
+    // UI libraries
+    implementation "com.aurelhubert:ahbottomnavigation:$bottomBar"
+
     // Testing
     testImplementation 'junit:junit:4.12'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
