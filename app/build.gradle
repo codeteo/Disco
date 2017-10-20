@@ -10,6 +10,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "CONSUMER_KEY", "\"" + propOrDef("consumerKey", "") + "\""
+        buildConfigField "String", "CONSUMER_SECRET_KEY", "\"" + propOrDef("consumerSecret", "") + "\""
     }
     buildTypes {
         release {
@@ -91,4 +94,9 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
+}
+
+String propOrDef(String propertyName, String defaultValue) {
+    def propertyValue = project.properties[propertyName]
+    return propertyValue != null ? propertyValue : defaultValue
 }
