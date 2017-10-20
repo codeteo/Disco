@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
+
     defaultConfig {
         applicationId "com.disco.man.discogman"
         minSdkVersion 21
@@ -11,10 +12,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "CONSUMER_KEY", "\"" + propOrDef("consumerKey", "") + "\""
-        buildConfigField "String", "CONSUMER_SECRET_KEY", "\"" + propOrDef("consumerSecret", "") + "\""
+        buildConfigField("String", "CONSUMER_KEY",  getConsumerKey())
+        buildConfigField("String", "CONSUMER_SECRET_KEY", getConsumerSecret())
     }
     buildTypes {
+        debug {
+            applicationIdSuffix '.develop'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -27,6 +31,18 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+def getConsumerKey(){
+    Properties props = new Properties()
+    props.load(new FileInputStream(new File('secret.properties')))
+    return props['consumerKey']
+}
+
+def getConsumerSecret(){
+    Properties props = new Properties()
+    props.load(new FileInputStream(new File('secret.properties')))
+    return props['consumerSecret']
 }
 
 dependencies {
@@ -94,9 +110,4 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$stethoVersion"
 
-}
-
-String propOrDef(String propertyName, String defaultValue) {
-    def propertyValue = project.properties[propertyName]
-    return propertyValue != null ? propertyValue : defaultValue
 }

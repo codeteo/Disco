@@ -36,6 +36,7 @@ public class LoginViewModel extends ViewModel {
                 .observeOn(schedulerProvider.androidMainThread())
                 .subscribe((aVoid, throwable) -> {
                     Timber.i("DONE!");
+                    Timber.i("Throwable == %s", throwable.getMessage());
                     Timber.i("aVoid == %s", aVoid);
                 });
     }

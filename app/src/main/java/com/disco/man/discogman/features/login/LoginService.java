@@ -2,8 +2,9 @@ package com.disco.man.discogman.features.login;
 
 import io.reactivex.Single;
 import okhttp3.RequestBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.HTTP;
+import retrofit2.http.POST;
 
 /**
  * Retrofit service for login screen.
@@ -11,7 +12,7 @@ import retrofit2.http.HTTP;
 
 public interface LoginService {
 
-    @HTTP(method = "GET", path = "/oauth/request_token", hasBody = true)
-    Single<Void> getRequestToken(@Body RequestBody requestBody);
+    @POST("/oauth/request_token")
+    Single<Call<Void>> getRequestToken(@Body RequestBody requestBody);
 
 }
