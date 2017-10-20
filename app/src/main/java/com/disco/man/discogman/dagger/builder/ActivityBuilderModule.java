@@ -3,6 +3,7 @@ package com.disco.man.discogman.dagger.builder;
 import android.app.Activity;
 
 import com.disco.man.discogman.features.main.MainActivity;
+import com.disco.man.discogman.features.main.dagger.components.MainActivitySubComponent;
 
 import dagger.Binds;
 import dagger.Module;

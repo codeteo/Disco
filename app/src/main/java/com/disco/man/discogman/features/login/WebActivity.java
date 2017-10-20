@@ -1,12 +1,10 @@
 package com.disco.man.discogman.features.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -15,21 +13,26 @@ import android.widget.ProgressBar;
 
 import com.disco.man.discogman.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import timber.log.Timber;
+
 public class WebActivity extends AppCompatActivity {
-    private static final String TAG = "WEBACTIVITY";
-    private ProgressBar progressBar;
-    private WebView webView;
+
+    public static final int REQUEST_CODE_AUTHORIZE = 0;
+
+    @BindView(R.id.progressBar) ProgressBar progressBar;
+    @BindView(R.id.webView) WebView webView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
+        ButterKnife.bind(this);
         init();
     }
 
     private void init() {
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        webView = (WebView) findViewById(R.id.webView);
         webView.setWebViewClient(new CustomWebViewClient());
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -41,17 +44,16 @@ public class WebActivity extends AppCompatActivity {
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.i(TAG, "shouldOverrideUrlLoading ");
+            Timber.i("shouldOverrideUrlLoading ");
             if (!url.contains("authorize")) {
-                Log.i(TAG, "shouldOverrideUrlLoading--OAUTH url= " + url);
+                Timber.i("shouldOverrideUrlLoading--OAUTH url= " + url);
 
                 Intent intent = new Intent();
                 intent.setData(Uri.parse(url));
-                setResult(Constants.REQUEST_CODE_AUTHORIZE, intent);
+                setResult(REQUEST_CODE_AUTHORIZE, intent);
                 finish();
-//                return true;
             } else {
-                Log.i(TAG, "shouldOverrideUrlLoading PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM PROBLEM");
+                Timber.i("shouldOverrideUrlLoading PROBLEM");
                 view.loadUrl(url);
             }
             return false;
@@ -59,7 +61,8 @@ public class WebActivity extends AppCompatActivity {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            Log.i(TAG, "onPageStarted URL = "  + url );
+            Timber.i("onPageStarted URL = "  + url );
+
             super.onPageStarted(view, url, favicon);
             progressBar.setVisibility(View.VISIBLE);
             webView.setVisibility(View.GONE);
@@ -67,7 +70,8 @@ public class WebActivity extends AppCompatActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
-            Log.i(TAG, "onPageFinished ");
+            Timber.i("onPageFinished ");
+
             super.onPageFinished(view, url);
             progressBar.setVisibility(View.GONE);
             webView.setVisibility(View.VISIBLE);
