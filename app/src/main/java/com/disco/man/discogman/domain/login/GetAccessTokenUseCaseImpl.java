@@ -31,9 +31,11 @@ public class GetAccessTokenUseCaseImpl implements GetAccessTokenUseCase {
                 .createHeaderForAccessToken(uri, authRequestToken, authRequestSecretToken))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.androidMainThread())
-                .subscribe(response -> {
+                .subscribe((response, throwable) -> {
 
-                    Timber.i("response == %s", response.toString());
+                    Timber.i("throwable == %s", throwable.getMessage());
+
+//                    Timber.i("response == %s", response.toString());
 
                 });
     }
