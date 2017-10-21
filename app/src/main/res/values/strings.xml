@@ -11,4 +11,12 @@
         your network connection and try again.
     </string>
     <!-- Login screen end-->
+
+    <!-- Bottom Bar start-->
+    <string name="bottom_bar_home">Home</string>
+    <string name="bottom_bar_wantlist">Wantlist</string>
+    <string name="bottom_bar_collections">Collections</string>
+    <string name="bottom_bar_profile">Profile</string>
+    <!-- Bottom Bar end-->
+
 </resources>

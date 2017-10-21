@@ -79,9 +79,7 @@ dependencies {
 
     // UI libraries
     implementation "com.aurelhubert:ahbottomnavigation:$bottomBar"
-    implementation("com.afollestad.material-dialogs:core:$materialoDialogs") {
-        exclude group: 'com.android.support', module: 'support-v13'
-    }
+    implementation("com.afollestad.material-dialogs:core:$materialoDialogs")
 
     // Testing
     testImplementation 'junit:junit:4.12'

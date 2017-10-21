@@ -26,4 +26,17 @@ public class SharedPreferencesManagerImpl implements SharedPreferencesManager {
                 .putString(PREF_KEY_ACCESS_SECRET_TOKEN, accessTokenSecret)
                 .apply();
     }
+
+    /**
+     * Checks if user has authorized the app. If true then
+     * access token and access token secret should exist in preferences.
+     *
+     * @return true if user gave access, else false.
+     */
+    @Override
+    public boolean checkIfUserGaveAccess() {
+        return sharedPreferences.contains(PREF_KEY_ACCESS_TOKEN) &&
+                sharedPreferences.contains(PREF_KEY_ACCESS_SECRET_TOKEN);
+
+    }
 }

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.disco.man.discogman.R;
+import com.disco.man.discogman.data.preferences.SharedPreferencesManager;
 import com.disco.man.discogman.features.main.MainActivity;
 
 import javax.inject.Inject;
@@ -28,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
     @Inject
     ViewModelProvider.Factory viewModelProvider;
 
+    @Inject
+    SharedPreferencesManager preferencesManager;
+
     private LoginViewModel viewModel;
 
     private String authRequestToken, authRequestSecretToken;
@@ -38,15 +42,21 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        viewModel = ViewModelProviders.of(this, viewModelProvider)
-                .get(LoginViewModel.class);
+        if (preferencesManager.checkIfUserGaveAccess()) {
+            startMainActivity();
+        } else {
 
-        viewModel.getRequestToken()
-                .subscribe(pair -> {
-                    authRequestToken = pair.first;
-                    authRequestSecretToken = pair.second;
-                    startWebActivity(authRequestToken);
-                });
+            viewModel = ViewModelProviders.of(this, viewModelProvider)
+                    .get(LoginViewModel.class);
+
+            viewModel.getRequestToken()
+                    .subscribe(pair -> {
+                        authRequestToken = pair.first;
+                        authRequestSecretToken = pair.second;
+                        startWebActivity(authRequestToken);
+                    });
+
+        }
     }
 
     @Override
