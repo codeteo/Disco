@@ -34,11 +34,15 @@ public class LoginActivity extends AppCompatActivity {
         viewModel = ViewModelProviders.of(this, viewModelProvider)
                 .get(LoginViewModel.class);
 
-        viewModel.getRequestToken();
+        viewModel.getRequestToken()
+                .subscribe(stringStringPair -> {
+                    startWebActivity(stringStringPair.first);
+                });
     }
 
-    private void startWebActivity() {
+    private void startWebActivity(String requestToken) {
         Intent intent = new Intent(this, WebActivity.class);
+        intent.putExtra("requestToken", requestToken);
         startActivity(intent);
     }
 

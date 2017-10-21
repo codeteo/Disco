@@ -1,10 +1,13 @@
 package com.disco.man.discogman.features.login;
 
 import android.arch.lifecycle.ViewModel;
+import android.util.Pair;
 
 import com.disco.man.discogman.domain.login.GetRequestTokenUseCase;
 
 import javax.inject.Inject;
+
+import io.reactivex.Single;
 
 /**
  * View Model for {@link LoginActivity}.
@@ -19,8 +22,8 @@ public class LoginViewModel extends ViewModel {
         this.requestTokenUseCase = requestTokenUseCase;
     }
 
-    void getRequestToken() {
-        requestTokenUseCase.getRequestToken();
+    Single<Pair<String, String>> getRequestToken() {
+        return requestTokenUseCase.getRequestToken();
     }
 
 }

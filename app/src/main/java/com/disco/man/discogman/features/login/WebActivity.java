@@ -11,6 +11,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
+import com.disco.man.discogman.Constants;
 import com.disco.man.discogman.R;
 
 import butterknife.BindView;
@@ -21,6 +22,8 @@ public class WebActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_AUTHORIZE = 0;
 
+    private static final String INTENT_KEY_TOKEN = "request_token";
+
     @BindView(R.id.progressBar) ProgressBar progressBar;
     @BindView(R.id.webView) WebView webView;
 
@@ -29,6 +32,7 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web);
         ButterKnife.bind(this);
+
         init();
     }
 
@@ -36,8 +40,15 @@ public class WebActivity extends AppCompatActivity {
         webView.setWebViewClient(new CustomWebViewClient());
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
-        String authorizationUrl = getIntent().getExtras().getString("authorizationUrl");
-        webView.loadUrl(Uri.parse(authorizationUrl).toString());
+
+        String requestToken = getIntent().getExtras().getString(INTENT_KEY_TOKEN);
+
+        webView.loadUrl(createAuthorizationUrl(requestToken));
+    }
+
+    private String createAuthorizationUrl(String requestToken) {
+        return Uri.parse(Constants.AUTHORIZATION_URL + "?oauth_token=" + requestToken)
+                .toString();
     }
 
     private class CustomWebViewClient extends WebViewClient {

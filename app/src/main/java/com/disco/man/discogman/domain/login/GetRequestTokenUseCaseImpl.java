@@ -1,6 +1,7 @@
 package com.disco.man.discogman.domain.login;
 
 import android.text.TextUtils;
+import android.util.Pair;
 
 import com.disco.man.discogman.features.login.LoginService;
 import com.disco.man.discogman.utils.headers.LoginHeader;
@@ -8,6 +9,7 @@ import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
 import timber.log.Timber;
 
 /**
@@ -26,12 +28,9 @@ public class GetRequestTokenUseCaseImpl implements GetRequestTokenUseCase {
     }
 
     @Override
-    public void getRequestToken() {
-        loginService.getRequestToken(new LoginHeader().createHeaderForRequestToken())
-                .subscribeOn(schedulerProvider.io())
-                .observeOn(schedulerProvider.androidMainThread())
-                .subscribe((responseBody, throwable) -> {
-                    Timber.i("DONE!");
+    public Single<Pair<String, String>> getRequestToken() {
+        return loginService.getRequestToken(new LoginHeader().createHeaderForRequestToken())
+                .map(responseBody -> {
 
                     String[] tokens = TextUtils.split(responseBody.string(), "&");
                     String authRequestSecretToken = TextUtils.split(tokens[0], "=")[1];
@@ -39,7 +38,10 @@ public class GetRequestTokenUseCaseImpl implements GetRequestTokenUseCase {
 
                     Timber.i("authToken == %s", authRequestToken);
                     Timber.i("authSecretToken == %s", authRequestSecretToken);
-                });
 
+                    return new Pair<>(authRequestToken, authRequestSecretToken);
+                })
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.androidMainThread());
     }
 }

@@ -10,7 +10,7 @@ public class Constants {
 
     // Auth
     private static final String REQUEST_TOKEN_URL = "https://api.discogs.com/oauth/request_token";
-    private static final String AUTHORIZATION_URL = "https://discogs.com/oauth/authorize";
+    public static final String AUTHORIZATION_URL = "https://discogs.com/oauth/authorize";
     private static final String ACCESS_TOKEN_URL = "https://api.discogs.com/oauth/access_token";
 
     public static final String OAUTH_CALLBACK = "oauth://jb.com";
