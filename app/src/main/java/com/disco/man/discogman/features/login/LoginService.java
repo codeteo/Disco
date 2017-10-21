@@ -20,7 +20,10 @@ public interface LoginService {
     @GET("/oauth/request_token")
     Single<ResponseBody> getRequestToken(@Header("Authorization") String header);
 
-    @Headers("Content-Type: application/x-www-form-urlencoded")
+    @Headers({
+            "Content-Type: application/x-www-form-urlencoded",
+            "User-Agent: Discs/1.0 +https://jb.com"
+    })
     @POST("/oauth/access_token")
     Single<Void> postAccessToken(@Header("Authorization") String header);
 

@@ -1,9 +1,11 @@
 package com.disco.man.discogman.domain.login;
 
+import android.net.Uri;
+
 /**
  * Use case for login feature.
  */
 
 public interface GetAccessTokenUseCase {
-    void postAccessToken();
+    void getAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken);
 }

@@ -1,6 +1,9 @@
 package com.disco.man.discogman.domain.login;
 
+import android.net.Uri;
+
 import com.disco.man.discogman.features.login.LoginService;
+import com.disco.man.discogman.utils.headers.AccessHeader;
 import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
 import javax.inject.Inject;
@@ -21,7 +24,11 @@ public class GetAccessTokenUseCaseImpl implements GetAccessTokenUseCase {
     }
 
     @Override
-    public void postAccessToken() {
-        loginService.
+    public void getAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken) {
+        loginService.postAccessToken(new AccessHeader()
+                .createHeaderForAccessToken(uri, authRequestToken, authRequestSecretToken))
+                .map(response -> {
+
+                });
     }
 }

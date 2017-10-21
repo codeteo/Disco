@@ -1,6 +1,7 @@
 package com.disco.man.discogman.features.login;
 
 import android.arch.lifecycle.ViewModel;
+import android.net.Uri;
 import android.util.Pair;
 
 import com.disco.man.discogman.domain.login.GetRequestTokenUseCase;
@@ -26,7 +27,7 @@ public class LoginViewModel extends ViewModel {
         return requestTokenUseCase.getRequestToken();
     }
 
-    void postAccessToken() {
+    void postAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken) {
 
     }
 

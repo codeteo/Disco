@@ -27,6 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel viewModel;
 
+    private String authRequestToken, authRequestSecretToken;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         AndroidInjection.inject(this);
@@ -37,8 +39,10 @@ public class LoginActivity extends AppCompatActivity {
                 .get(LoginViewModel.class);
 
         viewModel.getRequestToken()
-                .subscribe(stringStringPair -> {
-                    startWebActivity(stringStringPair.first);
+                .subscribe(pair -> {
+                    authRequestToken = pair.first;
+                    authRequestSecretToken = pair.second;
+                    startWebActivity(authRequestToken);
                 });
     }
 
@@ -48,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (data != null) {
             if (requestCode == REQUEST_CODE_AUTHORIZE) {
-                viewModel.postAccessToken();
+                viewModel.postAccessToken(data.getData(), authRequestToken, authRequestSecretToken);
             }
         }
 
