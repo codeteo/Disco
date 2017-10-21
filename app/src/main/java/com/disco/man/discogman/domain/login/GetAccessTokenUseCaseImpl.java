@@ -1,16 +1,27 @@
 package com.disco.man.discogman.domain.login;
 
+import com.disco.man.discogman.features.login.LoginService;
+import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
+
+import javax.inject.Inject;
+
 /**
  * Concrete implementation for {@link GetAccessTokenUseCase}.
  */
 
 public class GetAccessTokenUseCaseImpl implements GetAccessTokenUseCase {
 
-    public GetAccessTokenUseCaseImpl() {
+    private LoginService loginService;
+    private BaseSchedulerProvider schedulerProvider;
+
+    @Inject
+    public GetAccessTokenUseCaseImpl(LoginService loginService, BaseSchedulerProvider schedulerProvider) {
+        this.loginService = loginService;
+        this.schedulerProvider = schedulerProvider;
     }
 
     @Override
-    public void getAccessToken() {
-
+    public void postAccessToken() {
+        loginService.
     }
 }

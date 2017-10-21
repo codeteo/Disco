@@ -5,5 +5,5 @@ package com.disco.man.discogman.domain.login;
  */
 
 public interface GetAccessTokenUseCase {
-    void getAccessToken();
+    void postAccessToken();
 }

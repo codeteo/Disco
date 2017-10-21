@@ -26,4 +26,8 @@ public class LoginViewModel extends ViewModel {
         return requestTokenUseCase.getRequestToken();
     }
 
+    void postAccessToken() {
+
+    }
+
 }

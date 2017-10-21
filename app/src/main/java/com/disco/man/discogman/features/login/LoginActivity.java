@@ -20,6 +20,8 @@ import dagger.android.AndroidInjection;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final int REQUEST_CODE_AUTHORIZE = 0;
+
     @Inject
     ViewModelProvider.Factory viewModelProvider;
 
@@ -38,6 +40,18 @@ public class LoginActivity extends AppCompatActivity {
                 .subscribe(stringStringPair -> {
                     startWebActivity(stringStringPair.first);
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data != null) {
+            if (requestCode == REQUEST_CODE_AUTHORIZE) {
+                viewModel.postAccessToken();
+            }
+        }
+
     }
 
     private void startWebActivity(String requestToken) {
