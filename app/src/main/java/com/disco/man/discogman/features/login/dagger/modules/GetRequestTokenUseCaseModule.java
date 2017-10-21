@@ -9,7 +9,6 @@ import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
 import dagger.Module;
 import dagger.Provides;
-import retrofit2.Retrofit;
 
 /**
  * Dagger Module to provide {@link LoginService} to {@link LoginViewModel}.
@@ -17,12 +16,6 @@ import retrofit2.Retrofit;
 
 @Module
 public class GetRequestTokenUseCaseModule {
-
-    @ActivityScope
-    @Provides
-    LoginService providesLoginService(Retrofit retrofit) {
-        return retrofit.create(LoginService.class);
-    }
 
     @ActivityScope
     @Provides

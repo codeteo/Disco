@@ -60,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void startWebActivity(String requestToken) {
         Intent intent = new Intent(this, WebActivity.class);
-        intent.putExtra("requestToken", requestToken);
-        startActivity(intent);
+        intent.putExtra("request_token", requestToken);
+        startActivityForResult(intent, REQUEST_CODE_AUTHORIZE);
     }
 
 }
