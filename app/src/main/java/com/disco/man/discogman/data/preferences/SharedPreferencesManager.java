@@ -9,4 +9,6 @@ import android.content.SharedPreferences;
 
 public interface SharedPreferencesManager {
 
+    void storeAccessTokens(String accessToken, String accessTokenSecret);
+
 }

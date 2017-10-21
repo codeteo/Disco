@@ -2,10 +2,10 @@ package com.disco.man.discogman.dagger.modules;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.disco.man.discogman.Constants;
+import com.disco.man.discogman.data.preferences.SharedPreferencesManager;
+import com.disco.man.discogman.data.preferences.SharedPreferencesManagerImpl;
 import com.disco.man.discogman.utils.BaseUrlInterceptor;
 
 import javax.inject.Singleton;
@@ -32,8 +32,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    SharedPreferences provideSharedPreferences(Application application) {
-        return PreferenceManager.getDefaultSharedPreferences(application);
+    SharedPreferencesManager provideSharedPreferences(Application application) {
+        return new SharedPreferencesManagerImpl(application);
     }
 
     @Provides
