@@ -25,6 +25,6 @@ public interface LoginService {
             "User-Agent: Discs/1.0 +https://jb.com"
     })
     @POST("/oauth/access_token")
-    Single<Void> postAccessToken(@Header("Authorization") String header);
+    Single<ResponseBody> postAccessToken(@Header("Authorization") String header);
 
 }

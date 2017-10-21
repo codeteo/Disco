@@ -10,7 +10,6 @@ import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 import javax.inject.Inject;
 
 import io.reactivex.Single;
-import timber.log.Timber;
 
 /**
  * Concrete implementation of {@link GetRequestTokenUseCase} Use Case.
@@ -35,9 +34,6 @@ public class GetRequestTokenUseCaseImpl implements GetRequestTokenUseCase {
                     String[] tokens = TextUtils.split(responseBody.string(), "&");
                     String authRequestSecretToken = TextUtils.split(tokens[0], "=")[1];
                     String authRequestToken = TextUtils.split(tokens[1], "=")[1];
-
-                    Timber.i("authToken == %s", authRequestToken);
-                    Timber.i("authSecretToken == %s", authRequestSecretToken);
 
                     return new Pair<>(authRequestToken, authRequestSecretToken);
                 })

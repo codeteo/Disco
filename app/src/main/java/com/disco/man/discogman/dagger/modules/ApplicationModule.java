@@ -1,9 +1,9 @@
 package com.disco.man.discogman.dagger.modules;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.disco.man.discogman.Constants;
+import com.disco.man.discogman.MyApplication;
 import com.disco.man.discogman.data.preferences.SharedPreferencesManager;
 import com.disco.man.discogman.data.preferences.SharedPreferencesManagerImpl;
 import com.disco.man.discogman.utils.BaseUrlInterceptor;
@@ -26,14 +26,14 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    Context providesContext(Application application) {
-        return application;
+    Context providesContext(MyApplication application) {
+        return application.getApplicationContext();
     }
 
     @Provides
     @Singleton
-    SharedPreferencesManager provideSharedPreferences(Application application) {
-        return new SharedPreferencesManagerImpl(application);
+    SharedPreferencesManager provideSharedPreferences(Context context) {
+        return new SharedPreferencesManagerImpl(context);
     }
 
     @Provides

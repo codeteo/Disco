@@ -1,14 +1,14 @@
 package com.disco.man.discogman.domain.login;
 
 import android.net.Uri;
+import android.text.TextUtils;
 
+import com.disco.man.discogman.data.preferences.SharedPreferencesManager;
 import com.disco.man.discogman.features.login.LoginService;
 import com.disco.man.discogman.utils.headers.AccessHeader;
 import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
 import javax.inject.Inject;
-
-import timber.log.Timber;
 
 /**
  * Concrete implementation for {@link GetAccessTokenUseCase}.
@@ -18,11 +18,14 @@ public class GetAccessTokenUseCaseImpl implements GetAccessTokenUseCase {
 
     private LoginService loginService;
     private BaseSchedulerProvider schedulerProvider;
+    private SharedPreferencesManager sharedPreferencesManager;
 
     @Inject
-    public GetAccessTokenUseCaseImpl(LoginService loginService, BaseSchedulerProvider schedulerProvider) {
+    public GetAccessTokenUseCaseImpl(LoginService loginService, BaseSchedulerProvider schedulerProvider,
+                                     SharedPreferencesManager sharedPreferencesManager) {
         this.loginService = loginService;
         this.schedulerProvider = schedulerProvider;
+        this.sharedPreferencesManager = sharedPreferencesManager;
     }
 
     @Override
@@ -33,9 +36,11 @@ public class GetAccessTokenUseCaseImpl implements GetAccessTokenUseCase {
                 .observeOn(schedulerProvider.androidMainThread())
                 .subscribe((response, throwable) -> {
 
-                    Timber.i("throwable == %s", throwable.getMessage());
+                    String[] tokens = TextUtils.split(response.string(), "&");
+                    String authAccessSecretToken = TextUtils.split(tokens[0], "=")[1];
+                    String authAccessToken = TextUtils.split(tokens[1], "=")[1];
 
-//                    Timber.i("response == %s", response.toString());
+                    sharedPreferencesManager.storeAccessTokens(authAccessToken, authAccessSecretToken);
 
                 });
     }
