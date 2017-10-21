@@ -19,7 +19,6 @@ public class SharedPreferencesManagerImpl implements SharedPreferencesManager {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-
     @Override
     public void storeAccessTokens(String accessToken, String accessTokenSecret) {
         sharedPreferences.edit()

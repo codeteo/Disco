@@ -6,5 +6,9 @@
         Discogs web page will open and it will ask you to authorize this app
         for your account.
     </string>
+    <string name="login_error_dialog_title">Error</string>
+    <string name="login_error_dialog_content">There was an error logging you in. Check
+        your network connection and try again.
+    </string>
     <!-- Login screen end-->
 </resources>

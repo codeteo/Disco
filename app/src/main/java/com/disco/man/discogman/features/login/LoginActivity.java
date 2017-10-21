@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.disco.man.discogman.R;
+import com.disco.man.discogman.features.main.MainActivity;
 
 import javax.inject.Inject;
 
@@ -52,10 +55,36 @@ public class LoginActivity extends AppCompatActivity {
 
         if (data != null) {
             if (requestCode == REQUEST_CODE_AUTHORIZE) {
-                viewModel.postAccessToken(data.getData(), authRequestToken, authRequestSecretToken);
+                viewModel.postAccessToken(data.getData(), authRequestToken, authRequestSecretToken)
+                        .subscribe((aBoolean, throwable) -> {
+
+                            if (aBoolean.equals(Boolean.TRUE)) {
+                                startMainActivity();
+                            } else {
+                                showErrorMessage();
+                            }
+
+                        });
             }
         }
 
+    }
+
+    private void showErrorMessage() {
+        new MaterialDialog.Builder(this)
+                .title(getString(R.string.login_error_dialog_title))
+                .titleGravity(GravityEnum.CENTER)
+                .content(R.string.login_error_dialog_content)
+                .canceledOnTouchOutside(true)
+                .show();
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(0, 0);
     }
 
     private void startWebActivity(String requestToken) {

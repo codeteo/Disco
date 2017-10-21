@@ -45,6 +45,17 @@ def getConsumerSecret(){
     return props['consumerSecret']
 }
 
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '26.1.0'
+            }
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
@@ -68,6 +79,7 @@ dependencies {
 
     // UI libraries
     implementation "com.aurelhubert:ahbottomnavigation:$bottomBar"
+    implementation "com.afollestad.material-dialogs:core:$materialoDialogs"
 
     // Testing
     testImplementation 'junit:junit:4.12'

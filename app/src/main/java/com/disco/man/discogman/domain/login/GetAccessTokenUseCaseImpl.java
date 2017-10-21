@@ -10,6 +10,8 @@ import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
 import javax.inject.Inject;
 
+import io.reactivex.Single;
+
 /**
  * Concrete implementation for {@link GetAccessTokenUseCase}.
  */
@@ -29,19 +31,20 @@ public class GetAccessTokenUseCaseImpl implements GetAccessTokenUseCase {
     }
 
     @Override
-    public void getAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken) {
-        loginService.postAccessToken(new AccessHeader()
+    public Single<Boolean> getAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken) {
+        return loginService.postAccessToken(new AccessHeader()
                 .createHeaderForAccessToken(uri, authRequestToken, authRequestSecretToken))
                 .subscribeOn(schedulerProvider.io())
                 .observeOn(schedulerProvider.androidMainThread())
-                .subscribe((response, throwable) -> {
+                .map(responseBody -> {
 
-                    String[] tokens = TextUtils.split(response.string(), "&");
+                    String[] tokens = TextUtils.split(responseBody.string(), "&");
                     String authAccessSecretToken = TextUtils.split(tokens[0], "=")[1];
                     String authAccessToken = TextUtils.split(tokens[1], "=")[1];
 
                     sharedPreferencesManager.storeAccessTokens(authAccessToken, authAccessSecretToken);
 
+                    return true;
                 });
     }
 }

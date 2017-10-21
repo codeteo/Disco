@@ -30,8 +30,8 @@ public class LoginViewModel extends ViewModel {
         return requestTokenUseCase.getRequestToken();
     }
 
-    void postAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken) {
-        accessTokenUseCase.getAccessToken(uri, authRequestToken, authRequestSecretToken);
+    Single<Boolean> postAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken) {
+        return accessTokenUseCase.getAccessToken(uri, authRequestToken, authRequestSecretToken);
     }
 
 }
