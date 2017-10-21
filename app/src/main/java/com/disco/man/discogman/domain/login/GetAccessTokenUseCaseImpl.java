@@ -8,6 +8,8 @@ import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 /**
  * Concrete implementation for {@link GetAccessTokenUseCase}.
  */
@@ -27,7 +29,11 @@ public class GetAccessTokenUseCaseImpl implements GetAccessTokenUseCase {
     public void getAccessToken(Uri uri, String authRequestToken, String authRequestSecretToken) {
         loginService.postAccessToken(new AccessHeader()
                 .createHeaderForAccessToken(uri, authRequestToken, authRequestSecretToken))
-                .map(response -> {
+                .subscribeOn(schedulerProvider.io())
+                .observeOn(schedulerProvider.androidMainThread())
+                .subscribe(response -> {
+
+                    Timber.i("response == %s", response.toString());
 
                 });
     }
