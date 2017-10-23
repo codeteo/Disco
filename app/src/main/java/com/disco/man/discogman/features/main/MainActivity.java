@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
 import com.disco.man.discogman.R;
+import com.disco.man.discogman.features.main.fragments.wantlist.WantlistFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setupBottomBar();
+
+        bottomBar.setCurrentItem(1);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fl_container, WantlistFragment.newInstance())
+                .commit();
     }
 
     private void setupBottomBar() {
