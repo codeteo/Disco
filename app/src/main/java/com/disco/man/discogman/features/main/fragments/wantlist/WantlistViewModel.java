@@ -8,4 +8,6 @@ import android.arch.lifecycle.ViewModel;
 
 public class WantlistViewModel extends ViewModel {
 
+
+
 }

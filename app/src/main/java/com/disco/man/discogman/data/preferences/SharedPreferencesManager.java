@@ -12,4 +12,8 @@ public interface SharedPreferencesManager {
     void storeAccessTokens(String accessToken, String accessTokenSecret);
 
     boolean checkIfUserGaveAccess();
+
+    String getAccessToken();
+
+    String getAccessTokenSecret();
 }

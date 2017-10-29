@@ -10,6 +10,8 @@ import android.preference.PreferenceManager;
 
 public class SharedPreferencesManagerImpl implements SharedPreferencesManager {
 
+    private static final String EMPTY_STRING = "";
+
     private static final String PREF_KEY_ACCESS_TOKEN = "access_token";
     private static final String PREF_KEY_ACCESS_SECRET_TOKEN = "access_secret_token";
 
@@ -38,5 +40,15 @@ public class SharedPreferencesManagerImpl implements SharedPreferencesManager {
         return sharedPreferences.contains(PREF_KEY_ACCESS_TOKEN) &&
                 sharedPreferences.contains(PREF_KEY_ACCESS_SECRET_TOKEN);
 
+    }
+
+    @Override
+    public String getAccessToken() {
+        return sharedPreferences.getString(PREF_KEY_ACCESS_TOKEN, EMPTY_STRING);
+    }
+
+    @Override
+    public String getAccessTokenSecret() {
+        return sharedPreferences.getString(PREF_KEY_ACCESS_SECRET_TOKEN, EMPTY_STRING);
     }
 }
