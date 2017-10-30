@@ -4,6 +4,7 @@ import com.disco.man.discogman.MyApplication;
 import com.disco.man.discogman.dagger.builder.ActivityBuilderModule;
 import com.disco.man.discogman.dagger.modules.ApplicationModule;
 import com.disco.man.discogman.dagger.modules.NetworkModule;
+import com.disco.man.discogman.features.main.dagger.modules.MainActivityModule;
 
 import javax.inject.Singleton;
 
@@ -20,7 +21,8 @@ import dagger.android.AndroidInjectionModule;
         AndroidInjectionModule.class,
         ActivityBuilderModule.class,
         ApplicationModule.class,
-        NetworkModule.class,})
+        NetworkModule.class,
+        MainActivityModule.class})
 public interface ApplicationComponent {
 
     void inject(MyApplication application);

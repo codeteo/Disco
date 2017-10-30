@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 
 import com.disco.man.discogman.dagger.components.ApplicationComponent;
-import com.disco.man.discogman.dagger.components.DaggerApplicationComponent;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import timber.log.Timber;
@@ -36,6 +36,8 @@ public class MyApplication extends Application implements HasActivityInjector {
     }
 
     private void initDagger() {
+        DaggerApplicationComponent component;
+
         applicationComponent = DaggerApplicationComponent.builder()
                 .application(this)
                 .build();

@@ -19,7 +19,7 @@ import okhttp3.HttpUrl;
  */
 
 
-@Module()
+@Module
 public class ApplicationModule {
 
     private static final HttpUrl PRODUCTION_API_BASE_URL = HttpUrl.parse(Constants.BASE_DISCOGS_URL);

@@ -2,8 +2,7 @@ package com.disco.man.discogman.features.main.dagger.components;
 
 import com.disco.man.discogman.dagger.ActivityScope;
 import com.disco.man.discogman.features.main.MainActivity;
-import com.disco.man.discogman.features.main.dagger.modules.MainActivityModule;
-import com.disco.man.discogman.features.main.dagger.modules.MainActivityServiceModule;
+import com.disco.man.discogman.features.main.fragments.wantlist.dagger.modules.WantlistFragmentModule;
 
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
@@ -13,10 +12,10 @@ import dagger.android.AndroidInjector;
  */
 
 @ActivityScope
-@Subcomponent(modules = {MainActivityModule.class, MainActivityServiceModule.class})
+@Subcomponent(modules = {WantlistFragmentModule.class})
 public interface MainActivitySubComponent extends AndroidInjector<MainActivity> {
 
-    @Subcomponent.Builder
+    @Subcomponent.Builder()
     public abstract class Builder extends AndroidInjector.Builder<MainActivity> {
     }
 

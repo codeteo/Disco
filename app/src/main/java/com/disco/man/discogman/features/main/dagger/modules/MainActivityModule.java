@@ -1,35 +1,22 @@
 package com.disco.man.discogman.features.main.dagger.modules;
 
+import android.app.Activity;
 
-import android.arch.lifecycle.ViewModelProvider;
-
-import com.disco.man.discogman.dagger.ActivityScope;
-import com.disco.man.discogman.data.api.DiscogsApiService;
 import com.disco.man.discogman.features.main.MainActivity;
-import com.disco.man.discogman.features.main.MainViewModel;
-import com.disco.man.discogman.utils.ViewModelProviderFactory;
-import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
+import com.disco.man.discogman.features.main.dagger.components.MainActivitySubComponent;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
+import dagger.android.ActivityKey;
+import dagger.android.AndroidInjector;
+import dagger.multibindings.IntoMap;
 
-/**
- * Dagger Module providing dependencies for {@link MainActivity}'s ViewModel.
- */
+@Module(subcomponents = MainActivitySubComponent.class)
+public abstract class MainActivityModule {
 
-@Module
-public class MainActivityModule {
-
-    @Provides
-    @ActivityScope
-    MainViewModel providesMainViewModel(DiscogsApiService service, BaseSchedulerProvider schedulerProvider) {
-        return new MainViewModel(service, schedulerProvider);
-    }
-
-    @Provides
-    @ActivityScope
-    ViewModelProvider.Factory providesMainViewModelProvider(MainViewModel mainViewModel) {
-        return new ViewModelProviderFactory<>(mainViewModel);
-    }
-
+    @Binds
+    @IntoMap
+    @ActivityKey(MainActivity.class)
+    abstract AndroidInjector.Factory<? extends Activity>
+    bindYourActivityInjectorFactory(MainActivitySubComponent.Builder builder);
 }
