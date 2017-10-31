@@ -15,5 +15,7 @@ import dagger.android.AndroidInjector;
 public interface WantlistSubComponent extends AndroidInjector<WantlistFragment> {
 
     @Subcomponent.Builder
-    public abstract class Builder extends AndroidInjector.Builder<WantlistFragment> {}
+    public abstract class Builder extends AndroidInjector.Builder<WantlistFragment> {
+
+    }
 }

@@ -4,13 +4,12 @@ import com.disco.man.discogman.MyApplication;
 import com.disco.man.discogman.dagger.builder.ActivityBuilderModule;
 import com.disco.man.discogman.dagger.modules.ApplicationModule;
 import com.disco.man.discogman.dagger.modules.NetworkModule;
-import com.disco.man.discogman.features.main.dagger.modules.MainActivityModule;
 
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * Dagger Component builds all dependencies with application scope.
@@ -18,11 +17,10 @@ import dagger.android.AndroidInjectionModule;
 
 @Singleton
 @Component( modules = {
-        AndroidInjectionModule.class,
+        AndroidSupportInjectionModule.class,
         ActivityBuilderModule.class,
         ApplicationModule.class,
-        NetworkModule.class,
-        MainActivityModule.class})
+        NetworkModule.class})
 public interface ApplicationComponent {
 
     void inject(MyApplication application);
