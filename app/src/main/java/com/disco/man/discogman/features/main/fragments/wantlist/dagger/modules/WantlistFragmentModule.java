@@ -1,23 +1,32 @@
 package com.disco.man.discogman.features.main.fragments.wantlist.dagger.modules;
 
-import android.support.v4.app.Fragment;
-
+import com.disco.man.discogman.data.api.WantlistService;
+import com.disco.man.discogman.data.preferences.SharedPreferencesManager;
+import com.disco.man.discogman.domain.features.wantlist.GetWantlistUseCase;
+import com.disco.man.discogman.domain.features.wantlist.GetWantlistUseCaseImpl;
 import com.disco.man.discogman.features.main.fragments.wantlist.WantlistFragment;
-import com.disco.man.discogman.features.main.fragments.wantlist.dagger.components.WantlistSubComponent;
+import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
-import dagger.Binds;
 import dagger.Module;
-import dagger.android.AndroidInjector;
-import dagger.android.support.FragmentKey;
-import dagger.multibindings.IntoMap;
+import dagger.Provides;
+import retrofit2.Retrofit;
 
-@Module(subcomponents = WantlistSubComponent.class)
-public abstract class WantlistFragmentModule {
+/**
+ * Dagger Module providing dependencies for {@link WantlistFragment}'s ViewModel.
+ */
 
-    @Binds
-    @IntoMap
-    @FragmentKey(WantlistFragment.class)
-    abstract AndroidInjector.Factory<? extends Fragment>
-    bindWantlistFragmentInjectorFactory(WantlistSubComponent.Builder builder);
+@Module
+public class WantlistFragmentModule {
+
+    @Provides
+    WantlistService providesWantlistService(Retrofit retrofit) {
+        return retrofit.create(WantlistService.class);
+    }
+
+    @Provides
+    GetWantlistUseCase providesGetWantlistUseCase(WantlistService wantlistService,
+                          BaseSchedulerProvider schedulerProvider, SharedPreferencesManager preferencesManager) {
+        return new GetWantlistUseCaseImpl(wantlistService, schedulerProvider, preferencesManager);
+    }
 
 }

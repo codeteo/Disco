@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.disco.man.discogman.R;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.AndroidSupportInjection;
@@ -23,10 +25,8 @@ public class WantlistFragment extends Fragment {
 
     @BindView(R.id.rv_wantlist_list) RecyclerView recyclerView;
 
-/*
     @Inject
-    ViewModelProvider.Factory viewModelFactory;
-*/
+    WantlistViewModel viewModel;
 
     private WantlistViewModel wantlistViewModel;
 

@@ -1,7 +1,7 @@
 package com.disco.man.discogman.dagger.components;
 
 import com.disco.man.discogman.MyApplication;
-import com.disco.man.discogman.dagger.builder.ActivityBuilderModule;
+import com.disco.man.discogman.dagger.builder.ActivityBuilder;
 import com.disco.man.discogman.dagger.modules.ApplicationModule;
 import com.disco.man.discogman.dagger.modules.NetworkModule;
 
@@ -18,7 +18,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
 @Singleton
 @Component( modules = {
         AndroidSupportInjectionModule.class,
-        ActivityBuilderModule.class,
+        ActivityBuilder.class,
         ApplicationModule.class,
         NetworkModule.class})
 public interface ApplicationComponent {

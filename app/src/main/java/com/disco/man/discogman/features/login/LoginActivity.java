@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.GravityEnum;
@@ -16,15 +17,22 @@ import com.disco.man.discogman.features.main.MainActivity;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+
 
 /**
  * Screen where user will sign in giving username and password.
  * Sign in is mandatory for the user to proceed further to the app.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements HasSupportFragmentInjector {
 
     public static final int REQUEST_CODE_AUTHORIZE = 0;
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> fragmentInjector;
 
     @Inject
     ViewModelProvider.Factory viewModelProvider;
@@ -103,4 +111,8 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_CODE_AUTHORIZE);
     }
 
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return null;
+    }
 }

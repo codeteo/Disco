@@ -1,6 +1,5 @@
 package com.disco.man.discogman.features.login.dagger.modules;
 
-import com.disco.man.discogman.dagger.ActivityScope;
 import com.disco.man.discogman.features.login.LoginService;
 
 import dagger.Module;
@@ -14,7 +13,6 @@ import retrofit2.Retrofit;
 @Module
 public class LoginServiceModule {
 
-    @ActivityScope
     @Provides
     LoginService providesLoginService(Retrofit retrofit) {
         return retrofit.create(LoginService.class);

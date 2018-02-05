@@ -5,7 +5,8 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 
 /**
- * A provider factory for ViewModels
+ * A provider factory that persists ViewModels{@link ViewModel}.
+ * Used if the viewModel has a parameterized constructor.
  */
 
 public class ViewModelProviderFactory<V> implements ViewModelProvider.Factory {
