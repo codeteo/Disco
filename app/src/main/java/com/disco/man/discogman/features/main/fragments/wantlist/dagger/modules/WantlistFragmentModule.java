@@ -5,6 +5,7 @@ import com.disco.man.discogman.data.preferences.SharedPreferencesManager;
 import com.disco.man.discogman.domain.features.wantlist.GetWantlistUseCase;
 import com.disco.man.discogman.domain.features.wantlist.GetWantlistUseCaseImpl;
 import com.disco.man.discogman.features.main.fragments.wantlist.WantlistFragment;
+import com.disco.man.discogman.features.main.fragments.wantlist.WantlistViewModel;
 import com.disco.man.discogman.utils.schedulers.BaseSchedulerProvider;
 
 import dagger.Module;
@@ -17,6 +18,11 @@ import retrofit2.Retrofit;
 
 @Module
 public class WantlistFragmentModule {
+
+    @Provides
+    WantlistViewModel providesWantlistViewModel(GetWantlistUseCase useCase, SharedPreferencesManager preferences) {
+        return new WantlistViewModel(useCase, preferences);
+    }
 
     @Provides
     WantlistService providesWantlistService(Retrofit retrofit) {

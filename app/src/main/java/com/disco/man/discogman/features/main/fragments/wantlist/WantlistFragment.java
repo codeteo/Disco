@@ -28,8 +28,6 @@ public class WantlistFragment extends Fragment {
     @Inject
     WantlistViewModel viewModel;
 
-    private WantlistViewModel wantlistViewModel;
-
     public static WantlistFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -51,7 +49,7 @@ public class WantlistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wantlist, container, false);
         ButterKnife.bind(this, view);
 
-//        wantlistViewModel = ViewModelProviders.of(this, viewModelFactory).get(WantlistViewModel.class);
+        viewModel.onInit();
 
         return view;
     }
